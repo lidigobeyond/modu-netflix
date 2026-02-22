@@ -1,0 +1,22 @@
+{
+  "name": "mail-server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "docker-build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker build -t mail-server apps/mail-server/",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "docker-run": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker run --rm -p 25:25 -p 587:587 --env-file apps/mail-server/.env --name mail-server mail-server",
+        "cwd": "{workspaceRoot}"
+      }
+    }
+  }
+}
