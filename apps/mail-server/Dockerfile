@@ -16,10 +16,12 @@ COPY config/ config/
 # 커스텀 플러그인 복사 (webhook_notifier.js)
 COPY plugins/ plugins/
 
-# SMTP 포트 노출
-# 25  - 표준 SMTP (서버 간 메일 전송)
-# 587 - SMTP Submission (클라이언트 → 서버)
-EXPOSE 25 587
+# 엔트리포인트 스크립트 복사
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 
-# Haraka를 /app 디렉토리를 설정 루트로 실행
-CMD ["haraka", "-c", "/app"]
+# SMTP 포트 노출
+EXPOSE 25
+
+# 엔트리포인트에서 환경변수로 config 파일 덮어쓴 후 Haraka 실행
+ENTRYPOINT ["/docker-entrypoint.sh"]
