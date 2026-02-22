@@ -37,7 +37,7 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": ["apps/modu-netflix-e2e/**/*"]
+      "exclude": ["apps/api-server-e2e/**/*"]
     }
   ]
 }
