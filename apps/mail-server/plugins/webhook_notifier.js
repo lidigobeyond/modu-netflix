@@ -56,8 +56,10 @@ exports.send_webhook = function (next, connection) {
   const to = txn.rcpt_to ? txn.rcpt_to.map((r) => r.address()) : [];
   const subject = txn.header.get('Subject') || '';
   const rawBody = txn.notes.raw_body || '';
+  const receivedAt = new Date().toISOString();
+  const sentAt = txn.header.get('Date') || '';
 
-  const payload = JSON.stringify({ from, to, subject, rawBody });
+  const payload = JSON.stringify({ from, to, subject, rawBody, sentAt, receivedAt });
 
   let url;
   try {
